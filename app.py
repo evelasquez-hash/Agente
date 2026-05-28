@@ -144,9 +144,7 @@ try:
 
     st.divider()
 
-    # ----------------
     # DASHBOARD
-    # ----------------
     st.subheader("📊 Dashboard")
 
     col1, col2 = st.columns(2)
@@ -162,6 +160,34 @@ try:
         fig2 = px.bar(efecto_destino, x="DESTINO", y="EFECTIVIDAD",
                       title="Efectividad por destino")
         st.plotly_chart(fig2)
+
+    # ALERTAS
+    st.subheader("🚨 Alertas")
+
+    baja_efectividad = df[df['EFECTIVIDAD'] < 0.01]
+
+    if not baja_efectividad.empty:
+        st.warning(f"⚠️ {len(baja_efectividad)} vuelos con baja conversión")
+    else:
+        st.success("✅ No hay alertas críticas")
+
+    # CHAT
+    st.subheader("💬 Chat Inteligente")
+
+    query = st.text_input("Escribe tu consulta:")
+
+    if query:
+        respuesta = consultar(df, query)
+
+        if isinstance(respuesta, pd.DataFrame):
+            st.dataframe(respuesta)
+        else:
+            st.write(respuesta)
+
+# ✅ ESTE BLOQUE FALTABA
+except:
+    st.info("👆 Carga archivos y haz clic en 'Actualizar modelo'")
+``
 
     # ----------------
     # ALERTAS
