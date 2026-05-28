@@ -29,7 +29,12 @@ def actualizar_modelo(it_file, vt_file, LOW_FACTOR):
     it = it[['Fecha Inicio','hhmmss','Compañía','Vuelo','ORI','DES','Sillas']]
     it.columns = ['FECHA','HORA','AEROLINEA','VUELO','ORIGEN','DESTINO','SILLAS']
 
+    # detectar si viene como número o fecha
+if pd.api.types.is_numeric_dtype(it['FECHA']):
     it['FECHA'] = pd.to_datetime('1899-12-30') + pd.to_timedelta(it['FECHA'], 'D')
+else:
+    it['FECHA'] = pd.to_datetime(it['FECHA'], errors='coerce')
+
 
     vt = vt[['FECHA','HORA','AEROLINEA','VUELO','DESTINO','TOTAL','FOLIO']]
     vt['FECHA'] = pd.to_datetime(vt['FECHA'])
