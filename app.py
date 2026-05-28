@@ -202,4 +202,4 @@ if df is not None:
 
 else:
     st.info("👆 Carga archivos y genera el modelo")
-``
+
