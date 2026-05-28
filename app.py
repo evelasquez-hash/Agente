@@ -185,4 +185,5 @@ try:
     if query:
         respuesta = consultar(df, query)
 
-        if isinstance(respuesta, pd.DataFrame):
+if isinstance(respuesta, pd.DataFrame):
+    st.dataframe(respuesta)
