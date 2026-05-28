@@ -166,7 +166,7 @@ try:
     # ALERTAS
     st.subheader("🚨 Alertas")
 
-     if not baja_efectividad.empty:
+    if not baja_efectividad.empty:
         st.warning(f"⚠️ {len(baja_efectividad)} vuelos con baja conversión")
     else:
         st.success("✅ No hay alertas críticas")
