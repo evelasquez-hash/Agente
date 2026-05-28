@@ -142,6 +142,8 @@ if it_file and vt_file:
 try:
     df = pd.read_excel("modelo_actualizado.xlsx")
 
+    baja_efectividad = df[df['EFECTIVIDAD'] < 0.01]
+
     st.divider()
 
     # DASHBOARD
@@ -164,9 +166,7 @@ try:
     # ALERTAS
     st.subheader("🚨 Alertas")
 
-    baja_efectividad = df[df['EFECTIVIDAD'] < 0.01]
-
-    if not baja_efectividad.empty:
+     if not baja_efectividad.empty:
         st.warning(f"⚠️ {len(baja_efectividad)} vuelos con baja conversión")
     else:
         st.success("✅ No hay alertas críticas")
