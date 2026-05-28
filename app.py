@@ -142,36 +142,44 @@ if it_file and vt_file:
 try:
     df = pd.read_excel("modelo_actualizado.xlsx")
 
-    baja_efectividad = df[df['EFECTIVIDAD'] < 0.01]
-
     st.divider()
 
-    # DASHBOARD
+    # -------- DASHBOARD --------
     st.subheader("📊 Dashboard")
 
     col1, col2 = st.columns(2)
 
     with col1:
         ventas_destino = df.groupby("DESTINO")['VENTAS'].sum().reset_index()
-        fig1 = px.bar(ventas_destino, x="DESTINO", y="VENTAS",
-                      title="Ventas por destino")
+        fig1 = px.bar(
+            ventas_destino,
+            x="DESTINO",
+            y="VENTAS",
+            title="Ventas por destino"
+        )
         st.plotly_chart(fig1)
 
     with col2:
         efecto_destino = df.groupby("DESTINO")['EFECTIVIDAD'].mean().reset_index()
-        fig2 = px.bar(efecto_destino, x="DESTINO", y="EFECTIVIDAD",
-                      title="Efectividad por destino")
+        fig2 = px.bar(
+            efecto_destino,
+            x="DESTINO",
+            y="EFECTIVIDAD",
+            title="Efectividad por destino"
+        )
         st.plotly_chart(fig2)
 
-    # ALERTAS
+    # -------- ALERTAS --------
     st.subheader("🚨 Alertas")
+
+    baja_efectividad = df[df['EFECTIVIDAD'] < 0.01]
 
     if not baja_efectividad.empty:
         st.warning(f"⚠️ {len(baja_efectividad)} vuelos con baja conversión")
     else:
         st.success("✅ No hay alertas críticas")
 
-    # CHAT
+    # -------- CHAT --------
     st.subheader("💬 Chat Inteligente")
 
     query = st.text_input("Escribe tu consulta:")
@@ -184,9 +192,8 @@ try:
         else:
             st.write(respuesta)
 
-# ✅ ESTE BLOQUE FALTABA
-except:
-    st.info("👆 Carga archivos y haz clic en 'Actualizar modelo'")
+except Exception as e:
+    st.warning("⚠️ Aún no hay datos cargados o hubo un error.")
 
 
     # ----------------
