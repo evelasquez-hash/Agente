@@ -187,7 +187,7 @@ try:
 # ✅ ESTE BLOQUE FALTABA
 except:
     st.info("👆 Carga archivos y haz clic en 'Actualizar modelo'")
-``
+
 
     # ----------------
     # ALERTAS
